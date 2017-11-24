@@ -1,0 +1,98 @@
+﻿#!/bin/bash
+echo " "
+echo "Syntaxe :" 
+echo "sudo su (de preference)" 
+echo "./tree2txt /home (par exemple) >./tree2txt.txt)" 
+if (ls -dl $1 &>~/tree-tmp)
+then	
+cd $1	
+if (ls -l | fgrep drw >~/tree-tmp)
+then
+echo " "
+echo "Host" `hostname`
+echo " "
+echo "Arborescence � partir du R�pertoire $1 :"
+echo "  "
+for file in *
+    do
+        if (ls -dl $file | fgrep drw > ~/tree-tmp)
+        then
+        echo "/"$file 
+	cd $file
+	if (ls -l | fgrep drw >~/tree-tmp)
+	    then
+      	    for file in *
+	    do
+		if (ls -ld $file | fgrep drw > ~/tree-tmp)
+		then
+		echo "	//"$file
+		cd $file
+		if (ls -l |fgrep drw >~/tree-tmp)
+		   then
+	      	   for file in *
+  		   do
+		      if (ls -dl $file | fgrep drw > ~/tree-tmp)
+			then
+			echo "		///"$file
+			cd $file
+			if (ls -l | fgrep drw >~/tree-tmp)
+		            then
+		            for file in *
+			    do
+				if (ls -dl $file | fgrep drw > ~/tree-tmp)
+				   then
+				   echo "			////"$file
+				   cd $file 
+				   if (ls -l | fgrep drw >~/tree-tmp)
+		                      then
+				      for file in *
+				      do
+					if (ls -dl $file | fgrep drw >~/tree-tmp)
+				  	    then
+		                            echo "				/////"$file	
+						cd $file
+				  		if (ls -l | fgrep drw >~/tree-tmp)
+		                     			 then
+				     			 for file in *
+				     			 do
+								if (ls -dl $file | fgrep drw >~/tree-tmp)
+				  	   				 then
+		                           				 echo "
+			//////"$file	
+								fi
+				     			 done
+						fi
+						cd ..
+					fi
+					done
+				   fi
+				   cd ..	
+				fi
+			    done
+			    fi
+	 	 	    cd ..
+		      fi
+	  	   done
+		  fi
+		   cd ..
+       		 fi
+	     done
+	     fi	
+    	     cd ..
+	 fi
+    done
+fi
+echo " "
+echo "________________________________________________________________________"
+echo " "
+else
+echo " "
+echo "Le R�pertoire $1 N'EXISTE PAS sur `hostname` "
+echo " "
+fi
+rm ~/tree-tmp
+exit
+exit
+
+
+
