@@ -1,0 +1,101 @@
+﻿#!/bin/bash
+echo " "
+echo -n "De quel Repertoire voulez vous obtenir l'Arborescence ? "
+	read INPUT
+if (ls -dl $INPUT &>~/tree-tmp)
+then
+cd $INPUT	
+if (ls -l | fgrep drw &>~/tree-tmp)
+then
+echo " "
+echo "Host" `hostname`
+echo " "
+echo "Arborescence � partir du R�pertoire $INPUT :"
+echo "  "
+for file in *
+    do
+        if (ls -dl $file | fgrep drw > ~/tree-tmp)
+        then
+        echo "/"$file 
+	cd $file
+	if (ls -l | fgrep drw >~/tree-tmp)
+	    then
+      	    for file in *
+	    do
+		if (ls -ld $file | fgrep drw > ~/tree-tmp)
+		then
+		echo "	//"$file
+		cd $file
+		if (ls -l |fgrep drw >~/tree-tmp)
+		   then
+	      	   for file in *
+  		   do
+		      if (ls -dl $file | fgrep drw > ~/tree-tmp)
+			then
+			echo "		///"$file
+			cd $file
+			if (ls -l | fgrep drw >~/tree-tmp)
+		            then
+		            for file in *
+			    do
+				if (ls -dl $file | fgrep drw > ~/tree-tmp)
+				   then
+				   echo "			////"$file
+				   cd $file 
+				   if (ls -l | fgrep drw >~/tree-tmp)
+		                      then
+				      for file in *
+				      do
+					if (ls -dl $file | fgrep drw >~/tree-tmp)
+				  	    then
+		                            echo "				/////"$file	
+						cd $file
+				  		if (ls -l | fgrep drw >~/tree-tmp)
+		                     			 then
+				     			 for file in *
+				     			 do
+								if (ls -dl $file | fgrep drw >~/tree-tmp)
+				  	   				 then
+		                           				 echo "
+			//////"$file	
+								fi
+				     			 done
+						fi
+						cd ..
+					fi
+					done
+				   fi
+				   cd ..	
+				fi
+			    done
+			    fi
+	 	 	    cd ..
+		      fi
+	  	   done
+		  fi
+		   cd ..
+       		 fi
+	     done
+	     fi	
+    	     cd ..
+	 fi
+    done
+fi
+echo " "
+echo "________________________________________________________________________"
+echo " "
+else
+echo " "
+echo "Le R�pertoire $INPUT N'EXISTE PAS sur `hostname` "
+echo " "
+fi
+rm ~/tree-tmp
+echo "Retour Marge pour Quitter "
+echo " "
+read REPONSE
+case $REPONSE in
+	*)
+	exit
+esac
+
+
