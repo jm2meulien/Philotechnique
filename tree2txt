@@ -87,7 +87,7 @@ echo "________________________________________________________________________"
 echo " "
 else
 echo " "
-echo "Le R�pertoire $1 N'EXISTE PAS sur `hostname` "
+echo "Le Répertoire $1 N'EXISTE PAS sur `hostname` "
 echo " "
 fi
 rm ~/tree-tmp
